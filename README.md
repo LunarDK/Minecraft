@@ -1,6 +1,6 @@
 # Minecraft Server
 
-Servidor Minecraft hospedado gratuitamente 24/7 usando **GitHub Codespaces**, **Crafty Controller** e **Playit.gg**.
+Servidor Minecraft Paper 1.20.1 gratuito 24/7 usando **GitHub Codespaces**, **Crafty Controller** e **Playit.gg**.
 
 ## Como usar
 
@@ -9,8 +9,6 @@ Servidor Minecraft hospedado gratuitamente 24/7 usando **GitHub Codespaces**, **
 No GitHub, clique em **Code** > **Codespaces** > **Create codespace on main**.
 
 ### 2. Instalar o Crafty Controller
-
-No terminal do Codespace, execute:
 
 ```bash
 bash setup.sh
@@ -22,17 +20,26 @@ bash setup.sh
 /workspaces/Minecraft/Minecraft/run_crafty.sh
 ```
 
-### 4. Acessar o painel
+### 4. Configurar o servidor no Crafty
 
-1. Abra a aba **Portas** no VS Code
-2. Clique no link da porta **8443**
-3. Na tela de login, clique em **Forgot Password**
-4. Veja o usuario e senha no terminal onde o Crafty esta rodando
-5. Altere a senha apos o primeiro login
+1. Acesse http://localhost:8443
+2. Clique em **Forgot Password**, veja o usuario/senha no terminal
+3. Crie um servidor: **Paper 1.20.1**, nome: `paper`
+4. **Pare o servidor** apos a criacao
 
-### 5. Playit.gg (acesso publico)
+### 5. Implantar mundo e plugins
 
-Em outro terminal:
+```bash
+bash deploy.sh
+```
+
+Isso copia worlds, plugins e configuracoes para o servidor.
+
+### 6. Iniciar o servidor
+
+Inicie pelo painel do Crafty.
+
+### 7. Playit.gg (acesso publico)
 
 ```bash
 docker run --rm -it --net=host \
@@ -40,9 +47,7 @@ docker run --rm -it --net=host \
   ghcr.io/playit-cloud/playit-agent:0.17
 ```
 
-A SECRET_KEY voce obtem em: https://playit.gg
-
-### 6. Sempre que reiniciar
+### Sempre que reiniciar
 
 ```bash
 # Terminal 1 - Crafty
@@ -52,16 +57,29 @@ A SECRET_KEY voce obtem em: https://playit.gg
 docker run --rm -it --net=host -e SECRET_KEY="..." ghcr.io/playit-cloud/playit-agent:0.17
 ```
 
-Depois inicie o servidor Minecraft pelo painel do Crafty.
+Depois inicie o servidor pelo Crafty.
 
 ## Estrutura
 
 ```
-.minecraft/         - Servidor Minecraft (ignorado pelo git)
-.devcontainer/      - Configuracao do Codespace
-setup.sh            - Script de instalacao automatica
+server/
+  worlds/          - Backups dos mundos (world, nether, end)
+  plugins/         - JARs dos plugins
+  plugins-config/  - Configuracoes dos plugins (do Aternos)
+  server.properties
+
+setup.sh           - Instalacao do Crafty
+deploy.sh          - Implantacao de dados no servidor Crafty
 ```
 
-## Aviso
+## Plugins inclusos
 
-O Codespace desliga apos 30 min de inatividade. O servidor so fica online enquanto o Codespace estiver rodando.
+EssentialsX, WorldEdit, WorldGuard, Slimefun, SkinsRestorer, GSit,
+ViaVersion, Vault, Chunky, SilkSpawners, Harbor, TPA (WarSkyGod),
+vzBackpack, BubbleVillagers, Veinminer, DeathCoords
+
+## Notas
+
+- O Codespace desliga apos 30 min de inatividade
+- Servidor online apenas enquanto o Codespace estiver rodando
+- Java 21 necessario para vzBackpack (ja configurado no devcontainer)

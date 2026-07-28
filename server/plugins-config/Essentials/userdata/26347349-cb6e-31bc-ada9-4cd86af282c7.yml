@@ -1,0 +1,39 @@
+teleportenabled: true
+teleportauto: false
+godmode: false
+flymode: false
+muted: false
+jailed: false
+ip-address: 45.237.78.13
+afk: false
+socialspy: false
+npc: false
+powertoolsenabled: true
+accepting-pay: true
+baltop-exempt: false
+timestamps:
+  lastteleport: 0
+  lastheal: 0
+  mute: 0
+  jail: 0
+  onlinejail: 0
+  logout: 1785268094641
+  login: 1785265626533
+money: '0'
+last-account-name: Hassami
+logoutlocation:
+  world: 84f3857d-38c5-45d4-b915-826521be5f3e
+  world-name: world
+  x: -199.74629282940487
+  y: 49.0
+  z: -383.30000001192093
+  yaw: 176.400146484375
+  pitch: -48.90003967285156
+lastlocation:
+  world: 84f3857d-38c5-45d4-b915-826521be5f3e
+  world-name: world
+  x: -240.70016182251672
+  y: 71.75985926093821
+  z: -375.6050734187688
+  yaw: 164.5391845703125
+  pitch: 90.0

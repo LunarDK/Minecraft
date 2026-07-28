@@ -1,0 +1,65 @@
+create:
+  already: "You already have a backpack"
+  perm: "You do not have permission to create a %size% backpack"
+  maxbp: "You can not create more backpacks"
+  target:
+    already: "%player% already has a backpack"
+    created: "You created a backpack to "
+    create: "%player% created you a %size% backpack"
+    perm: "You do not have permission to create other backpacks"
+delete:
+  confirm: "Write \u0022confirm\u0022"
+  notBackpack: "You do not have a backpack"
+  deleted: "Your backpack has been deleted"
+  target:
+    notBackpack: "%player% does not have a backpack"
+    deleted: "%player%'s backpack has been deleted"
+    perm: "You do not have permission to delete other backpacks"
+    deletedBy: "Your backpack has been deleted by %player%"
+gui:
+  small: "small"
+  medium: "medium"
+  large: "large"
+  title: "&rBackpack Menu"
+  browser: "Write the name"
+  nextPage: "Next page"
+  previousPage: "Previous page"
+  size:
+    small: "&a&lSmall size"
+    medium: "&e&lMedium size"
+    large: "&4&lLarge size"
+  items:
+    create: "Create a backpack"
+    delete: "Delete a backpack"
+    config: "Config"
+    configuration: "&rConfiguration"
+    keepBackpack: "Keep Backpack"
+    current: "Current: "
+    back: "Back"
+    search: "Search a player"
+    has: "%player% has a backpack"
+    hasNot: "%player% does not have a backpack"
+    size: "&rSize"
+  config:
+    gamerule: "Gamerule keepBackpack is now set: %bool%"
+    changeSize: "%size% size set to %num% row"
+    small: "Small backpack can't be bigger than medium backpack"
+    large: "Large backpack can't be smaller than medium backpack"
+  create:
+    title: "&rPlayers Online (%size%)"
+  delete:
+    title: "&rPlayers Online (Delete)"
+  open:
+    small: "Small Backpack"
+    medium: "Medium Backpack"
+    large: "Large Backpack"
+config:
+  reloaded: "[Backpacks] Config reloaded!"
+  perms: "You do not have permission to use this command"
+  exist: "This command doesn't exists"
+  open: "Use /bp open to open the backpack"
+  help: "Use /bp help to see the commands"
+  update: "Backpacks has a new update"
+  notUpdate: "Backpacks is up to date"
+  title: "&r%player%'s Backpack"
+  backpacks: "&rBackpacks"

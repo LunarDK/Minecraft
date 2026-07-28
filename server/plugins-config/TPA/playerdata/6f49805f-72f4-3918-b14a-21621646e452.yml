@@ -1,0 +1,24 @@
+language: pt_BR
+last_location:
+  world: world
+  x: -449.1852885849049
+  y: 74.0
+  z: -52.23621824386007
+  pitch: 27.450129
+  yaw: -143.99965
+logout_location:
+  world: world
+  x: -256.69999998807907
+  y: 67.5625
+  z: -360.84647801799036
+  pitch: 25.35055
+  yaw: -85.657715
+default_home: casa
+homes:
+  casa:
+    world: world
+    x: -250.4192117013986
+    y: 67.0
+    z: -359.52295217252373
+    pitch: 41.400093
+    yaw: -125.24956

@@ -1,0 +1,55 @@
+# =====================================================================
+#   All-in-One VeinMiner & TreeFeller Configuration
+#   Developed by: in2bubble
+# =====================================================================
+
+# Enable or disable the Master switches
+tree-enabled: true
+ore-enabled: true
+shovel-enabled: true
+
+# Server-Wide Difficulty Mode: EASY, NORMAL, HARD (Controlled only by OP/Admins)
+# EASY:   durability cost multiplier = 2 | custom block chain limit = 64
+# NORMAL: durability cost multiplier = 4 | custom block chain limit = 32
+# HARD:   durability cost multiplier = 6 | custom block chain limit = 16
+mod-difficulty: NORMAL
+
+# Maximum blocks to mine in a single ore vein miner chain
+max-blocks: 64
+
+# Define custom block chain mining rules.
+# toolType must be either PICKAXE, SHOVEL, or AXE.
+custom-entries:
+- blockId: minecraft:obsidian
+  count: 10
+  toolType: PICKAXE
+  enabled: true
+- blockId: minecraft:gravel
+  count: 28
+  toolType: SHOVEL
+  enabled: true
+- blockId: minecraft:moss_block
+  count: 32
+  toolType: SHOVEL
+  enabled: true
+- blockId: minecraft:stone
+  count: 20
+  toolType: PICKAXE
+  enabled: true
+- blockId: minecraft:netherrack
+  count: 32
+  toolType: PICKAXE
+  enabled: true
+- blockId: minecraft:wheat
+  count: 16
+  toolType: PICKAXE
+  enabled: true
+- blockId: minecraft:tuff
+  count: 32
+  toolType: PICKAXE
+  enabled: true
+- blockId: minecraft:granite
+  count: 32
+  toolType: PICKAXE
+  enabled: true
+allow-world-difficulty-sync: false
