@@ -2,84 +2,57 @@
 
 Servidor Minecraft Paper 1.20.1 gratuito 24/7 usando **GitHub Codespaces**, **Crafty Controller** e **Playit.gg**.
 
+Totalmente automatizado: abra o Codespace e o servidor ja estara pronto.
+
 ## Como usar
 
-### 1. Abrir o Codespace
+1. No GitHub, va em **Code** > **Codespaces** > **Create codespace on main**
+2. Aguarde o setup automatico (2-5 min)
+3. Acesse o Crafty em http://localhost:8000 (admin / 123456789)
+4. Descubra o endereco publico:
+   ```bash
+   tail -f /tmp/playit/playit.log | grep -o 'https\?://[^ ]*\|Playit public address: [^ ]*'
+   ```
+5. Conecte-se com seu cliente Minecraft!
 
-No GitHub, clique em **Code** > **Codespaces** > **Create codespace on main**.
+## O que acontece automaticamente
 
-### 2. Instalar o Crafty Controller
+| Passo | Descricao |
+|-------|-----------|
+| setup.sh | Instala Crafty Controller (se necessario) |
+| init-server.sh | Inicia Crafty, cria servidor Paper 1.20.1, plugins, mundos, playit.gg |
+| postStartCommand | Re-inicia servico a cada restart do Codespace |
 
-```bash
-bash setup.sh
-```
-
-### 3. Iniciar o Crafty
-
-```bash
-/workspaces/Minecraft/Minecraft/run_crafty.sh
-```
-
-### 4. Configurar o servidor no Crafty
-
-1. Acesse http://localhost:8443
-2. Clique em **Forgot Password**, veja o usuario/senha no terminal
-3. Crie um servidor: **Paper 1.20.1**, nome: `paper`
-4. **Pare o servidor** apos a criacao
-
-### 5. Implantar mundo e plugins
+## Comandos uteis
 
 ```bash
-bash deploy.sh
+bash deploy.sh <server_id>     # Re-implantar dados manualmente
+tail -f /tmp/crafty.log         # Log do Crafty
+tail -f /tmp/playit/playit.log  # Log do Playit.gg (endereco publico)
 ```
-
-Isso copia worlds, plugins e configuracoes para o servidor.
-
-### 6. Iniciar o servidor
-
-Inicie pelo painel do Crafty.
-
-### 7. Playit.gg (acesso publico)
-
-```bash
-docker run --rm -it --net=host \
-  -e SECRET_KEY="SUA_SECRET_KEY" \
-  ghcr.io/playit-cloud/playit-agent:0.17
-```
-
-### Sempre que reiniciar
-
-```bash
-# Terminal 1 - Crafty
-/workspaces/Minecraft/Minecraft/run_crafty.sh
-
-# Terminal 2 - Playit.gg
-docker run --rm -it --net=host -e SECRET_KEY="..." ghcr.io/playit-cloud/playit-agent:0.17
-```
-
-Depois inicie o servidor pelo Crafty.
 
 ## Estrutura
 
 ```
 server/
   worlds/          - Backups dos mundos (world, nether, end)
-  plugins/         - JARs dos plugins
+  plugins/         - JARs dos plugins (16 plugins)
   plugins-config/  - Configuracoes dos plugins (do Aternos)
-  server.properties
+  server.properties - Config do servidor (survival, hard, 20 players)
 
-setup.sh           - Instalacao do Crafty
-deploy.sh          - Implantacao de dados no servidor Crafty
+setup.sh           - Instalacao do Crafty (1x)
+init-server.sh     - Automacao completa: cria server + deploy + playit
+deploy.sh          - Re-deploy manual de dados
 ```
 
-## Plugins inclusos
+## Plugins
 
-EssentialsX, WorldEdit, WorldGuard, Slimefun, SkinsRestorer, GSit,
-ViaVersion, Vault, Chunky, SilkSpawners, Harbor, TPA (WarSkyGod),
-vzBackpack, BubbleVillagers, Veinminer, DeathCoords
+EssentialsX, WorldEdit, WorldGuard, Slimefun, SkinsRestorer, GSit, ViaVersion,
+Vault, Chunky, SilkSpawners, Harbor, TPA (WarSkyGod), vzBackpack,
+BubbleVillagers, Veinminer, DeathCoords
 
 ## Notas
 
-- O Codespace desliga apos 30 min de inatividade
+- Codespace desliga apos 30 min de inatividade (gratuito)
 - Servidor online apenas enquanto o Codespace estiver rodando
-- Java 21 necessario para vzBackpack (ja configurado no devcontainer)
+- Java 21 necessario para vzBackpack

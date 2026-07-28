@@ -1,31 +1,31 @@
 {
-  "name": "Minecraft Server",
-  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-22.04",
+  "name": "Minecraft Server (Paper 1.20.1 + Crafty + Playit.gg)",
+  "image": "mcr.microsoft.com/devcontainers/universal:2-linux",
   "features": {
     "ghcr.io/devcontainers/features/java:1": {
       "version": "21",
       "installMaven": false,
       "installGradle": false
     },
+    "ghcr.io/devcontainers/features/python:1": {
+      "version": "3.11"
+    },
     "ghcr.io/devcontainers/features/docker-in-docker:2": {}
   },
-  "forwardPorts": [8443, 25565],
+  "forwardPorts": [8000, 8443, 25565],
   "portsAttributes": {
-    "8443": {
-      "label": "Crafty Controller",
-      "onAutoForward": "notify"
-    },
-    "25565": {
-      "label": "Minecraft Server",
-      "onAutoForward": "notify"
-    }
+    "8000": { "label": "Crafty Web UI (HTTP)", "onAutoForward": "notify" },
+    "8443": { "label": "Crafty Web UI (HTTPS)", "onAutoForward": "notify" },
+    "25565": { "label": "Minecraft Server", "onAutoForward": "notify" }
   },
+  "postCreateCommand": "bash setup.sh && bash init-server.sh",
+  "postStartCommand": "bash init-server.sh",
   "customizations": {
     "vscode": {
       "extensions": [
-        "ms-vscode.cpptools-extension-pack"
+        "ms-python.python",
+        "ms-azuretools.vscode-docker"
       ]
     }
-  },
-  "postCreateCommand": "sudo apt update && sudo apt upgrade -y && sudo apt install -y git python3-pip && pip3 install distro"
+  }
 }

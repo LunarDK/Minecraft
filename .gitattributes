@@ -1,0 +1,32 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Shell scripts must have LF line endings
+*.sh text eol=lf
+*.bash text eol=lf
+
+# Python files
+*.py text
+
+# JSON files
+*.json text
+
+# YAML files
+*.yml text
+*.yaml text
+
+# Properties files
+*.properties text
+
+# Markdown
+*.md text
+
+# Binary files
+*.jar binary
+*.zip binary
+*.png binary
+*.jpg binary
+*.ico binary
+*.db binary
+*.bin binary
+*.schem binary

@@ -1,65 +1,58 @@
 #!/bin/bash
 set -e
 
-echo "=================================="
-echo " Minecraft Server - Setup Script"
-echo "=================================="
-echo ""
+REPO_DIR="$(cd "$(dirname "$0")" && pwd)"
+CRAFTY_DIR="${CRAFTY_DIR:-/opt/crafty}"
+ADMIN_USER="${ADMIN_USER:-admin}"
+ADMIN_PASS="123456789"
 
-REPO_NAME=$(basename $(pwd))
-INSTALL_DIR="/workspaces/$REPO_NAME/Minecraft"
+red() { echo -e "\033[31m$*\033[0m"; }
+green() { echo -e "\033[32m$*\033[0m"; }
+yellow() { echo -e "\033[33m$*\033[0m"; }
 
-echo "[1/6] Atualizando pacotes..."
-sudo apt update && sudo apt upgrade -y
+green "=== Instalador do Crafty Controller ==="
 
-echo ""
-echo "[2/6] Instalando dependencias..."
-pip3 install distro 2>/dev/null || sudo python3 -m pip install distro --break-system-packages
-
-echo ""
-echo "[3/6] Baixando instalador do Crafty Controller..."
-if [ -d "crafty-installer-4.0" ]; then
-  rm -rf crafty-installer-4.0
+if [ -f "$CRAFTY_DIR/main.py" ]; then
+  green "Crafty ja esta instalado em $CRAFTY_DIR"
+  exit 0
 fi
-git clone https://gitlab.com/crafty-controller/crafty-installer-4.0.git
 
-echo ""
-echo "[4/6] Executando instalador..."
-echo ""
-echo "ATENCAO: Durante a instalacao, responda:"
-echo "  - Continuar no Ubuntu? -> Y"
-echo "  - Instalar em /var/opt/...? -> N"
-echo "  - Diretorio de instalacao: $INSTALL_DIR"
-echo "  - Branch: master"
-echo "  - Criar service file? -> N"
-echo ""
+yellow "Instalando dependencias..."
+sudo apt-get update -qq
+sudo apt-get install -y -qq python3 python3-pip python3-venv git curl unzip gzip
 
-cd crafty-installer-4.0
-sudo ./install_crafty.sh
+yellow "Clonando Crafty 4..."
+sudo git clone --depth 1 https://gitlab.com/crafty-controller/crafty-4.git "$CRAFTY_DIR"
+sudo chown -R $(whoami):$(whoami) "$CRAFTY_DIR"
 
-echo ""
-echo "[5/6] Limpando..."
-cd /workspaces/$REPO_NAME
-rm -rf crafty-installer-4.0
+cd "$CRAFTY_DIR"
+yellow "Criando ambiente Python..."
+python3 -m venv venv
+source venv/bin/activate
+pip install -q --upgrade pip
+pip install -q -r requirements.txt
 
-echo ""
-echo "[6/6] Instalacao concluida!"
-echo ""
-echo "=================================="
-echo " PROXIMOS PASSOS:"
-echo "=================================="
-echo ""
-echo "1. Inicie o Crafty:"
-echo "   $INSTALL_DIR/run_crafty.sh"
-echo ""
-echo "2. Abra a aba PORTAS no VS Code"
-echo "   e clique no link da porta 8443"
-echo ""
-echo "3. Login:"
-echo "   - Clique em 'Forgot Password'"
-echo "   - Veja usuario/senha no terminal"
-echo ""
-echo "4. Configure o Playit.gg em outro"
-echo "   terminal com Docker:"
-echo "   docker run --rm -it --net=host -e SECRET_KEY=\"...\" ghcr.io/playit-cloud/playit-agent:0.17"
-echo ""
+yellow "Criando config com credenciais admin pre-definidas..."
+mkdir -p "$CRAFTY_DIR/app/config"
+cat > "$CRAFTY_DIR/app/config/config.json" << 'CONFEOF'
+{
+  "app_root": "/crafty",
+  "port": 8000,
+  "https_port": 8443
+}
+CONFEOF
+
+cat > "$CRAFTY_DIR/app/config/default-creds.txt" << CREDSEOF
+admin,123456789
+CREDSEOF
+
+cat > "$CRAFTY_DIR/run_crafty.sh" << 'RUNEOF'
+#!/bin/bash
+cd /opt/crafty
+source venv/bin/activate
+exec python3 main.py
+RUNEOF
+chmod +x "$CRAFTY_DIR/run_crafty.sh"
+
+green "Instalacao concluida em $CRAFTY_DIR"
+green "Usuario: admin / Senha: 123456789"
