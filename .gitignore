@@ -1,0 +1,26 @@
+# Minecraft Server Files
+Minecraft/
+Minecraft_*
+crafty-installer-4.0/
+
+# Logs
+*.log
+*.gz
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# Editor files
+.vscode/settings.json
+*.sublime-workspace
+
+# Credentials & secrets
+.env
+*.key
+*.pem
+
+# Temp
+tmp/
+temp/
+*.tmp
